@@ -61,14 +61,14 @@ public class SocketWorker extends AbstractDataWorker {
 			
 			while ((len = mIn.read(data)) != -1) {
 				data_size += len;
-				System.out.println(data_size);
+				//System.out.println(data_size);
 				/*data[data_size] = (byte)len;
 				data_size++;
 				// 개행이면 while문을 빠져나감.
 				if (len == 0x0a) {
 					break;
 				}*/
-				if(data_size > 1024 * 1000){
+				if(data_size > 1024 * 1000*100){
 					SimpleDateFormat date = new SimpleDateFormat("yyyyMMddhhmm");
 					fout = new BufferedOutputStream(new FileOutputStream(new File(date.format(new Date())+".txt")));
 					data_size = len;
