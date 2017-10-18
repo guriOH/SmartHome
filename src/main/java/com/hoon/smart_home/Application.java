@@ -1,14 +1,18 @@
 package com.hoon.smart_home;
 
 import org.apache.log4j.Logger;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.hoon.smart_home.serial.IDataService;
 
+@SpringBootApplication
 public class Application {
 	private final static Logger logger = Logger.getLogger(Application.class);
 
 	public static void main(String[] args) {
-		startService();
+		SpringApplication.run(Application.class, args);
+		//startService();
 	}
 
 	public static boolean startService() {
