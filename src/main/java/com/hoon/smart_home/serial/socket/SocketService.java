@@ -11,12 +11,17 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.hoon.smart_home.command.ServerStarter;
 import com.hoon.smart_home.common.exeception.AnalysisException;
 import com.hoon.smart_home.serial.IDataService;
 import com.hoon.smart_home.serial.ThreadWorker;
 
 public class SocketService implements IDataService{
 	
+	private final static Logger logger = LogManager.getLogger(SocketService.class);
 	private int _port = 5000;
 	private ServerSocket mServerSocket;
 	private Thread _serviceWorker;
@@ -25,8 +30,8 @@ public class SocketService implements IDataService{
 	
     private Socket mSocket;
 
-    private DataInputStream mIn;    // µé¾î¿À´Â Åë·Î
-    private PrintWriter mOut;  // ³ª°¡´Â Åë·Î
+    private DataInputStream mIn;    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+    private PrintWriter mOut;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     
     public SocketService(){
     	 
@@ -38,7 +43,7 @@ public class SocketService implements IDataService{
 			_serviceWorker = new Thread(new ThreadWorker(this, "TListen"));
 			_serviceWorker.setName("DataService:Listener");
 			_serviceWorker.start();
-			System.out.println("Service is started and listening");
+			logger.info("Service is started and listening");
 		} catch(Exception e) {
 		}	
 	}
@@ -46,7 +51,7 @@ public class SocketService implements IDataService{
 	@Override
 	public void initialize() throws AnalysisException {
 		this._workerPool = new DataWorkerPool(10, SocketWorker.class);
-		System.out.println("Maximum # of working thread for SocketService is 10");
+		logger.info("Maximum # of working thread for SocketService is 10");
 		
 		
 	}
@@ -57,7 +62,7 @@ public class SocketService implements IDataService{
 			Socket l_socket;
 			while(true) {
 				l_socket = _serverSocket.accept();
-				System.out.println("Waitting");
+				logger.info("Waitting");
 				SocketWorker l_worker = (SocketWorker) _workerPool.getWorker();
 				l_worker.setSocket(l_socket);
 			}

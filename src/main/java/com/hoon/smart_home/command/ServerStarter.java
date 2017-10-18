@@ -2,14 +2,15 @@ package com.hoon.smart_home.command;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.hoon.smart_home.serial.IDataService;
 
 @Component
 public class ServerStarter {
-	private final static Logger logger = Logger.getLogger(ServerStarter.class);
+	private final static Logger logger = LogManager.getLogger(ServerStarter.class);
 	
 	@PostConstruct
 	public static boolean startService() {
