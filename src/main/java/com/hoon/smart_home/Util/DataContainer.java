@@ -17,5 +17,9 @@ public class DataContainer {
 	public void setMoisture(int moisture) {
 		this.moisture = moisture;
 	}
+	@Override
+	public String toString() {
+		return "";
+	}
 	
 }

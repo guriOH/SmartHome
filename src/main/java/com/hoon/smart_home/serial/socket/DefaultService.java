@@ -1,4 +1,4 @@
-package com.hoon.smart_home.dao;
+package com.hoon.smart_home.serial.socket;
 
 import com.hoon.smart_home.common.exeception.AnalysisException;
 import com.hoon.smart_home.interfaces.AbstractService;
