@@ -46,8 +46,8 @@ public class SocketWorker extends AbstractDataWorker {
 	public void setSocket(Socket p_socket) {
 		_socket = p_socket;
 		
-		DataInputStream mIn = null;    // µé¾î¿À´Â Åë·Î
-		PrintWriter mOut = null;  // ³ª°¡´Â Åë·Î
+		DataInputStream mIn = null;    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+		PrintWriter mOut = null;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		try {
           
 
@@ -64,27 +64,23 @@ public class SocketWorker extends AbstractDataWorker {
 				//System.out.println(data_size);
 				/*data[data_size] = (byte)len;
 				data_size++;
-				// °³ÇàÀÌ¸é while¹®À» ºüÁ®³ª°¨.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ whileï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 				if (len == 0x0a) {
 					break;
 				}*/
-				if(data_size > 1024 * 1000*100){
+				/*if(data_size > 1024 * 1000*100){
 					SimpleDateFormat date = new SimpleDateFormat("yyyyMMddhhmm");
 					fout = new BufferedOutputStream(new FileOutputStream(new File(date.format(new Date())+".txt")));
 					data_size = len;
-				}
+				}*/
 				
-				fout.write(data,0,len);
+				//fout.write(data,0,len);
 			}
 			fout.flush();
 			System.out.printf("data_size : %d \n", data_size);
-			System.out.println(new String(data,"UTF-8").trim()); // ¹ÙÀÌÆ® ¹è¿­À» ¹®ÀÚ¿­·Î ¸¸µé°í °ø¹éÀ» Á¦°Å ÇÔ.
+			System.out.println(new String(data,"UTF-8").trim()); // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
 			
-            // Å¬¶óÀÌ¾ðÆ®¿¡¼­ º¸³½ ¹®ÀÚ¿­ Ãâ·Â
-            System.out.println(mIn.readLine());
-
-            // Å¬¶óÀÌ¾ðÆ®¿¡ ¹®ÀÚ¿­ Àü¼Û
-            mOut.println("Àü¼Û Àß µÇ¾úÀ½");
+			this.setTask(new String(data,"UTF-8").trim());
             mOut.flush();
 
         } catch (IOException e) {

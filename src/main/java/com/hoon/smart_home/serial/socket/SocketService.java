@@ -30,8 +30,8 @@ public class SocketService implements IDataService{
 	
     private Socket mSocket;
 
-    private DataInputStream mIn;    // ������ ���
-    private PrintWriter mOut;  // ������ ���
+    private DataInputStream mIn;   
+    private PrintWriter mOut;  
     
     public SocketService(){
     	 

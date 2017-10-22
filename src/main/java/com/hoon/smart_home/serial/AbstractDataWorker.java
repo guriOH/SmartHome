@@ -2,10 +2,14 @@ package com.hoon.smart_home.serial;
 
 import java.nio.charset.Charset;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import com.hoon.smart_home.interfaces.AbstractService;
 import com.hoon.smart_home.serial.socket.DataWorkerPool;
 
 public abstract class AbstractDataWorker implements Runnable {
-	
+	protected Logger logger = LogManager.getLogger(AbstractDataWorker.class.getName());
 	public enum WorkerState {
 		NON_ACTIVE, WORKING, WAITING
 	}
@@ -18,6 +22,8 @@ public abstract class AbstractDataWorker implements Runnable {
 	private DataWorkerPool _workerPool;
 	private Charset _encoding = null;
 	private Charset _utf8Encoding = Charset.forName("utf-8");
+	
+	private String task = null;
 	
 	
 	public AbstractDataWorker(String p_workerName, DataWorkerPool p_workerPool) {
@@ -43,6 +49,13 @@ public abstract class AbstractDataWorker implements Runnable {
 
 	protected void setEncoding(Charset _encoding) {
 		this._encoding = _encoding;
+	}
+	
+	public final void setTask(String p_task) {
+		this.task = p_task;
+		synchronized (this) {
+			this.notify();
+		}
 	}
 	
 	public final boolean isAvailable() {
@@ -94,6 +107,22 @@ public abstract class AbstractDataWorker implements Runnable {
 			long l_end = 0;
 			try {
 				
+				if(task != null) {
+					
+					try {
+						l_start = System.nanoTime();
+						doTask(task);
+					} catch(Exception e) {
+					} finally {
+						try {
+							l_end = System.nanoTime();
+						} catch(Exception e) {
+						} finally {
+							task = null;
+						}
+					}
+				}
+				
 				synchronized (this) {
 					if(_requiredReturn) {
 						_workerPool.putAvailableWorker(this);
@@ -122,10 +151,15 @@ public abstract class AbstractDataWorker implements Runnable {
 	
 	private void doTask(String p_task) {
 		
+		AbstractService l_service = null;
 		try {
-			
+			if(p_task != null && p_task.length()>0) {
+				l_service = (AbstractService)Class.forName("com.hoon.smart_home.dao.DefaultService").newInstance();
+			}
+			l_service.execute(p_task);
 			
 		} catch(Exception e) {
+			logger.error(e);
 		} finally {
 		}
 	}

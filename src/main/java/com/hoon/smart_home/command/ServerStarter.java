@@ -16,17 +16,27 @@ public class ServerStarter {
 	public static boolean startService() {
 		boolean l_result = true;
 		IDataService l_service = null;
+		IDataService l_dataService = null;
 
 		String l_serviceName = "com.hoon.smart_home.serial.socket.SocketService";
+		String l_dataServiceName = "com.hoon.smart_home.serial.socket.FTPService";
 		try {
 			if (l_serviceName != null && l_serviceName.length() > 0) {
 				l_service = (IDataService) Class.forName(l_serviceName).newInstance();
 				l_service.initialize();
 				l_service.start();
-				 logger.info("Service is started!!");
+				 logger.info("Smarthome service is started!!");
+				 try {
+					 l_dataService = (IDataService) Class.forName(l_dataServiceName).newInstance();
+					 l_dataService.initialize();
+					 l_dataService.start();
+					 logger.info("ftp service is started!!");
+				 }catch(Exception e) {
+					 logger.fatal("Could not execute ftp service",e);
+				 }
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.fatal("Could not execute smarthome service",e);
 			l_result = false;
 		}
 		return l_result;
