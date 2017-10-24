@@ -3,7 +3,7 @@ package com.hoon.smart_home.service.interfaces;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.hoon.smart_home.Util.APIMETHOD;
+import com.hoon.smart_home.utility.APIMETHOD;
 
 public abstract class AbstractService {
 	private Logger _logger = LogManager.getLogger(AbstractService.class.getName());

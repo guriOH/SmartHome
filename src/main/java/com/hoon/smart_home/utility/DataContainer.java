@@ -1,4 +1,4 @@
-package com.hoon.smart_home.Util;
+package com.hoon.smart_home.utility;
 
 public class DataContainer {
 
