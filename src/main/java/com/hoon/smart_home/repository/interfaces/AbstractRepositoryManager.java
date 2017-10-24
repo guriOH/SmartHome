@@ -1,4 +1,4 @@
-package com.hoon.smart_home.interfaces;
+package com.hoon.smart_home.repository.interfaces;
 
 import java.sql.Connection;
 

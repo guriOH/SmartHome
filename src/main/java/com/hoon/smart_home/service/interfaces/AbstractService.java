@@ -1,4 +1,4 @@
-package com.hoon.smart_home.interfaces;
+package com.hoon.smart_home.service.interfaces;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -46,7 +46,7 @@ public abstract class AbstractService {
 	public final void execute(String task) {
 		try {
 			switch (APIMETHOD.valueOf(task)) {
-			case CONNECT:
+			case CREATE:
 				break;
 			case INSERTDATA:
 				break;
@@ -58,7 +58,7 @@ public abstract class AbstractService {
 		}
 	}
 	
-	protected abstract void setConnection();
+	protected abstract void create();
 	
 	protected abstract String getData();
 	

@@ -5,8 +5,8 @@ import java.nio.charset.Charset;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.hoon.smart_home.interfaces.AbstractService;
 import com.hoon.smart_home.serial.socket.DataWorkerPool;
+import com.hoon.smart_home.service.interfaces.AbstractService;
 
 public abstract class AbstractDataWorker implements Runnable {
 	protected Logger logger = LogManager.getLogger(AbstractDataWorker.class.getName());

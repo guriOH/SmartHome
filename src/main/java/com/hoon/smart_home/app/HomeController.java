@@ -1,4 +1,4 @@
-package com.hoon.smart_home;
+package com.hoon.smart_home.app;
 
 import java.text.DateFormat;
 import java.util.Date;
