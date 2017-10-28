@@ -12,6 +12,8 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.json.simple.JSONObject;
+
 import com.hoon.smart_home.serial.AbstractDataWorker;
 
 public class SocketWorker extends AbstractDataWorker {
@@ -61,25 +63,10 @@ public class SocketWorker extends AbstractDataWorker {
 			
 			while ((len = mIn.read(data)) != -1) {
 				data_size += len;
-				//System.out.println(data_size);
-				/*data[data_size] = (byte)len;
-				data_size++;
-				// �����̸� while���� ��������.
-				if (len == 0x0a) {
-					break;
-				}*/
-				/*if(data_size > 1024 * 1000*100){
-					SimpleDateFormat date = new SimpleDateFormat("yyyyMMddhhmm");
-					fout = new BufferedOutputStream(new FileOutputStream(new File(date.format(new Date())+".txt")));
-					data_size = len;
-				}*/
 				
-				//fout.write(data,0,len);
 			}
 			fout.flush();
-			System.out.printf("data_size : %d \n", data_size);
 			System.out.println(new String(data,"UTF-8").trim()); // ����Ʈ �迭�� ���ڿ��� ����� ������ ���� ��.
-			
 			this.setTask(new String(data,"UTF-8").trim());
             mOut.flush();
 
